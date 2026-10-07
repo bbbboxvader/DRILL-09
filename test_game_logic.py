@@ -1,6 +1,15 @@
 import unittest
 
-from game_logic import Facing, InputState, PlayerState, axis, movement, step_player
+from game_logic import (
+    Facing,
+    InputState,
+    PlayerState,
+    axis,
+    movement,
+    next_frame,
+    sprite_row,
+    step_player,
+)
 
 
 class AxisTests(unittest.TestCase):
@@ -37,6 +46,17 @@ class MovementTests(unittest.TestCase):
         player = PlayerState(1230, 974)
         top_right = step_player(player, InputState(right=True, up=True))
         self.assertEqual((top_right.x, top_right.y), (1230, 974))
+
+
+class AnimationTests(unittest.TestCase):
+    def test_rows_match_idle_and_running_directions(self):
+        self.assertEqual(sprite_row(Facing.LEFT, False), 2)
+        self.assertEqual(sprite_row(Facing.RIGHT, False), 3)
+        self.assertEqual(sprite_row(Facing.LEFT, True), 0)
+        self.assertEqual(sprite_row(Facing.RIGHT, True), 1)
+
+    def test_frame_wraps_after_eight_images(self):
+        self.assertEqual(next_frame(7), 0)
 
 
 if __name__ == "__main__":
