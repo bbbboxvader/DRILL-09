@@ -34,3 +34,7 @@ def axis(negative: bool, positive: bool) -> int:
     """서로 반대인 두 키 상태를 -1, 0, 1 축 값으로 바꾼다."""
     return int(positive) - int(negative)
 
+
+def clamp(value: float, lower: float, upper: float) -> float:
+    return max(lower, min(value, upper))
+
