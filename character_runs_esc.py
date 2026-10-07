@@ -1,6 +1,16 @@
 from pico2d import *
 
-from game_logic import CANVAS_HEIGHT, CANVAS_WIDTH, InputState, PlayerState, step_player
+from game_logic import (
+    CANVAS_HEIGHT,
+    CANVAS_WIDTH,
+    SPRITE_SIZE,
+    InputState,
+    PlayerState,
+    is_moving,
+    next_frame,
+    sprite_row,
+    step_player,
+)
 
 
 def handle_events(keys: InputState) -> bool:
@@ -37,12 +47,23 @@ def run():
     character = load_image("animation_sheet.png")
     keys = InputState()
     player = PlayerState(CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2)
+    frame = 0
     running = True
     while running:
         running = handle_events(keys)
         player = step_player(player, keys)
         background.draw(CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2)
+        row = sprite_row(player.facing, is_moving(keys))
+        character.clip_draw(
+            frame * SPRITE_SIZE,
+            row * SPRITE_SIZE,
+            SPRITE_SIZE,
+            SPRITE_SIZE,
+            player.x,
+            player.y,
+        )
         update_canvas()
+        frame = next_frame(frame)
         delay(0.05)
     close_canvas()
 
