@@ -52,9 +52,14 @@ def step_player(
 ) -> PlayerState:
     dx, dy = movement(keys)
     half = SPRITE_SIZE / 2
+    facing = player.facing
+    if dx < 0:
+        facing = Facing.LEFT
+    elif dx > 0:
+        facing = Facing.RIGHT
     return PlayerState(
         clamp(player.x + dx * speed, half, width - half),
         clamp(player.y + dy * speed, half, height - half),
-        player.facing,
+        facing,
     )
 
