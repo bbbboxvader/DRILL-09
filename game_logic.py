@@ -50,7 +50,7 @@ def is_moving(keys: InputState) -> bool:
 def sprite_row(facing: Facing, moving: bool) -> int:
     if not moving:
         return 2 if facing is Facing.LEFT else 3
-    raise ValueError("moving sprite row is not configured")
+    return 0 if facing is Facing.LEFT else 1
 
 
 def step_player(
