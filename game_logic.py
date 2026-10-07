@@ -42,3 +42,19 @@ def clamp(value: float, lower: float, upper: float) -> float:
 def movement(keys: InputState) -> tuple[int, int]:
     return axis(keys.left, keys.right), axis(keys.down, keys.up)
 
+
+def step_player(
+    player: PlayerState,
+    keys: InputState,
+    speed: float = MOVE_SPEED,
+    width: int = CANVAS_WIDTH,
+    height: int = CANVAS_HEIGHT,
+) -> PlayerState:
+    dx, dy = movement(keys)
+    half = SPRITE_SIZE / 2
+    return PlayerState(
+        clamp(player.x + dx * speed, half, width - half),
+        clamp(player.y + dy * speed, half, height - half),
+        player.facing,
+    )
+
