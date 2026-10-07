@@ -29,6 +29,15 @@ class MovementTests(unittest.TestCase):
         player = PlayerState(640, 512, Facing.RIGHT)
         self.assertEqual(step_player(player, InputState(left=True)).facing, Facing.LEFT)
 
+    def test_player_stops_at_every_screen_edge(self):
+        player = PlayerState(50, 50)
+        bottom_left = step_player(player, InputState(left=True, down=True))
+        self.assertEqual((bottom_left.x, bottom_left.y), (50, 50))
+
+        player = PlayerState(1230, 974)
+        top_right = step_player(player, InputState(right=True, up=True))
+        self.assertEqual((top_right.x, top_right.y), (1230, 974))
+
 
 if __name__ == "__main__":
     unittest.main()
