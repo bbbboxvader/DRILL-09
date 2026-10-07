@@ -38,3 +38,7 @@ def axis(negative: bool, positive: bool) -> int:
 def clamp(value: float, lower: float, upper: float) -> float:
     return max(lower, min(value, upper))
 
+
+def movement(keys: InputState) -> tuple[int, int]:
+    return axis(keys.left, keys.right), axis(keys.down, keys.up)
+
