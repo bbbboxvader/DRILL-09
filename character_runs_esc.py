@@ -43,29 +43,32 @@ def handle_events(keys: InputState) -> bool:
 
 def run():
     open_canvas(CANVAS_WIDTH, CANVAS_HEIGHT)
-    background = load_image("TUK_GROUND.png")
-    character = load_image("animation_sheet.png")
-    keys = InputState()
-    player = PlayerState(CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2)
-    frame = 0
-    running = True
-    while running:
-        running = handle_events(keys)
-        player = step_player(player, keys)
-        background.draw(CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2)
-        row = sprite_row(player.facing, is_moving(keys))
-        character.clip_draw(
-            frame * SPRITE_SIZE,
-            row * SPRITE_SIZE,
-            SPRITE_SIZE,
-            SPRITE_SIZE,
-            player.x,
-            player.y,
-        )
-        update_canvas()
-        frame = next_frame(frame)
-        delay(0.05)
-    close_canvas()
+    try:
+        background = load_image("TUK_GROUND.png")
+        character = load_image("animation_sheet.png")
+        keys = InputState()
+        player = PlayerState(CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2)
+        frame = 0
+        running = True
+        while running:
+            running = handle_events(keys)
+            player = step_player(player, keys)
+            clear_canvas()
+            background.draw(CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2)
+            row = sprite_row(player.facing, is_moving(keys))
+            character.clip_draw(
+                frame * SPRITE_SIZE,
+                row * SPRITE_SIZE,
+                SPRITE_SIZE,
+                SPRITE_SIZE,
+                player.x,
+                player.y,
+            )
+            update_canvas()
+            frame = next_frame(frame)
+            delay(0.05)
+    finally:
+        close_canvas()
 
 
 if __name__ == "__main__":
