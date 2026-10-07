@@ -43,6 +43,16 @@ def movement(keys: InputState) -> tuple[int, int]:
     return axis(keys.left, keys.right), axis(keys.down, keys.up)
 
 
+def is_moving(keys: InputState) -> bool:
+    return movement(keys) != (0, 0)
+
+
+def sprite_row(facing: Facing, moving: bool) -> int:
+    if not moving:
+        return 2 if facing is Facing.LEFT else 3
+    raise ValueError("moving sprite row is not configured")
+
+
 def step_player(
     player: PlayerState,
     keys: InputState,
