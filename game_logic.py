@@ -22,3 +22,10 @@ class InputState:
     up: bool = False
     down: bool = False
 
+
+@dataclass(frozen=True)
+class PlayerState:
+    x: float
+    y: float
+    facing: Facing = Facing.RIGHT
+
