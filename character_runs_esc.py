@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from pico2d import *
 
 from game_logic import (
@@ -11,6 +13,8 @@ from game_logic import (
     sprite_row,
     step_player,
 )
+
+ASSET_DIR = Path(__file__).resolve().parent
 
 
 def handle_events(keys: InputState) -> bool:
@@ -44,8 +48,8 @@ def handle_events(keys: InputState) -> bool:
 def run():
     open_canvas(CANVAS_WIDTH, CANVAS_HEIGHT)
     try:
-        background = load_image("TUK_GROUND.png")
-        character = load_image("animation_sheet.png")
+        background = load_image(str(ASSET_DIR / "TUK_GROUND.png"))
+        character = load_image(str(ASSET_DIR / "animation_sheet.png"))
         keys = InputState()
         player = PlayerState(CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2)
         frame = 0
