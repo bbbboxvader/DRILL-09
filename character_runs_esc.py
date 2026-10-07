@@ -1,6 +1,6 @@
 from pico2d import *
 
-from game_logic import CANVAS_HEIGHT, CANVAS_WIDTH, InputState, PlayerState
+from game_logic import CANVAS_HEIGHT, CANVAS_WIDTH, InputState, PlayerState, step_player
 
 
 def handle_events(keys: InputState) -> bool:
@@ -35,8 +35,15 @@ def run():
     open_canvas(CANVAS_WIDTH, CANVAS_HEIGHT)
     background = load_image("TUK_GROUND.png")
     character = load_image("animation_sheet.png")
-    background.draw(CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2)
-    update_canvas()
+    keys = InputState()
+    player = PlayerState(CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2)
+    running = True
+    while running:
+        running = handle_events(keys)
+        player = step_player(player, keys)
+        background.draw(CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2)
+        update_canvas()
+        delay(0.05)
     close_canvas()
 
 
