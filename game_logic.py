@@ -29,3 +29,8 @@ class PlayerState:
     y: float
     facing: Facing = Facing.RIGHT
 
+
+def axis(negative: bool, positive: bool) -> int:
+    """서로 반대인 두 키 상태를 -1, 0, 1 축 값으로 바꾼다."""
+    return int(positive) - int(negative)
+
