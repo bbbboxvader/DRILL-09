@@ -53,6 +53,10 @@ def sprite_row(facing: Facing, moving: bool) -> int:
     return 0 if facing is Facing.LEFT else 1
 
 
+def next_frame(frame: int) -> int:
+    return (frame + 1) % FRAME_COUNT
+
+
 def step_player(
     player: PlayerState,
     keys: InputState,
